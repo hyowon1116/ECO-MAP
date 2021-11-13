@@ -14,10 +14,10 @@ const Height = Dimensions.get('window').height - Width;
 
 class MapCameraScreen extends Component {
 
-    TakePhoto = async () => {
+    TakePhoto = async (title) => {
         if (this.camera) {
             const data = await this.camera.takePictureAsync({quality: 0.5, base64: true});
-            this.props.navigation.navigate('Map_Photo', {'uri': data.uri});
+            this.props.navigation.navigate('Map_Photo', {'uri': data.uri, 'title': title});
         }
     }
 
@@ -38,7 +38,7 @@ class MapCameraScreen extends Component {
                     </View>
                     <TouchableOpacity
                         style={styles.buttonStyle}
-                        onPress={() => this.TakePhoto(this)}
+                        onPress={() => this.TakePhoto(title)}
                     />
                 </View>
             </View>

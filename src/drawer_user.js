@@ -7,9 +7,8 @@
 
 import 'react-native-gesture-handler';
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, Image, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
 import ImageCropPicker from 'react-native-image-crop-picker';
-import ProfilePicture from 'react-native-profile-picture';
 import OptionMenu from 'react-native-option-menu';
 
 import {ProfileImage, Nickname} from './slide_drawer';
@@ -51,10 +50,9 @@ class DrawerUser extends Component {
 
     setImage(image) {
         return (
-            <ProfilePicture
-                isPicture={true}
-                requirePicture={image}
-                pictureStyle={styles.profileStyle}
+            <Image
+                source={image}
+                style={styles.profileStyle}
             />
         )
     }
@@ -166,6 +164,7 @@ const styles = StyleSheet.create({
     profileStyle: {
         width: 100,
         height: 100,
+        borderRadius: 50,
         borderWidth: 1,
         borderColor: '#000000'
     },

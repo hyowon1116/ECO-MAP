@@ -6,7 +6,7 @@
  */
 
 import React, {Component} from 'react';
-import {Text, TextInput, View, Image, ImageBackground, StyleSheet, ScrollView, TouchableOpacity, Platform, PermissionsAndroid} from 'react-native';
+import {Text, TextInput, View, Image, Dimensions, StyleSheet, ScrollView, TouchableOpacity, Platform, PermissionsAndroid} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Postcode from '@actbase/react-daum-postcode';
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 7
     },
     scrollStyle: {
-        width: '90%',
+        width: Dimensions.get('window').width - 40,
         backgroundColor: '#808080',
         opacity: 0.2,
         borderWidth: 2,

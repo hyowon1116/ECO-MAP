@@ -6,14 +6,16 @@
  */
 
 import React, {Component} from 'react';
-import {View, StyleSheet, Image, Dimensions} from 'react-native';
+import {Text, View, StyleSheet, Image, Dimensions} from 'react-native';
+import MapSearchScreen from './map_search';
 
-const Width = Dimensions.get('window').width - 20;
+const Width = Dimensions.get('window').width - 100;
 
 class MapPhotoScreen extends Component {
     render() {
         const {params} = this.props.route;
         const uri = params.uri;
+        const title = params.title;
 
         return (
             <View style={styles.viewStyle}>
@@ -21,6 +23,7 @@ class MapPhotoScreen extends Component {
                     source={{uri: uri}}
                     style={{width: Width, height: Width}}
                 />
+                <Text>{title} 인증샷</Text>
             </View>
         )
     }

@@ -7,24 +7,25 @@
 
 import React, {Component} from 'react';
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import ProfilePicture from 'react-native-profile-picture';
 
 class RankingScreen extends Component {
 
     RankList(rank, name, score) {
-        let color;
-        
-        if (rank === 1) {color = '#D5A11E'}
-        else if (rank === 2) {color = '#A3A3A3'}
-        else if (rank === 3) {color = '#CD7F32'}
-        else {color = '#F1F1F1'}
-
         return (
-            <View style={[styles.listStyle, {backgroundColor: color}]}>
+            <View style={styles.listStyle}>
                 <View style={[styles.boxStyle, {marginLeft: -20}]}>
                     <Text style={styles.textStyle}>{rank}</Text>
                 </View>
                 <View style={styles.boxStyle}>
-                    <Text style={styles.textStyle}>{name}</Text>
+                    <ProfilePicture
+                        isPicture={true}
+                        requirePicture={require('./assets/logo.jpg')}
+                        pictureStyle={styles.profileStyle}
+                    />
+                </View>
+                <View style={styles.boxStyle}>
+                    <Text style={[styles.textStyle, {fontSize: 18}]}>{name}</Text>
                 </View>
                 <View style={[styles.boxStyle, {marginRight: -20}]}>
                     <Text style={styles.textStyle}>{score}</Text>
@@ -41,7 +42,7 @@ class RankingScreen extends Component {
                         <Text style={{color: '#FFFFFF'}}>순위</Text>
                     </View>
                     <View style={styles.boxStyle}>
-                        <Text style={{color: '#FFFFFF'}}>닉네임</Text>
+                        <Text style={{color: '#FFFFFF'}}>이용자</Text>
                     </View>
                     <View style={[styles.boxStyle, {marginRight: -20}]}>
                         <Text style={{color: '#FFFFFF'}}>기여도</Text>
@@ -71,10 +72,10 @@ class RankingScreen extends Component {
 
 const styles = StyleSheet.create({
     listStyle: {
-        height: 50,
         alignItems: 'center',
         flexDirection: 'row',
-        borderBottomWidth: 1
+        backgroundColor: '#F1F1F1'
+        // borderBottomWidth: 1
     },
     headerStyle: {
         height: 40,
@@ -84,6 +85,11 @@ const styles = StyleSheet.create({
     boxStyle: {
         flex: 1,
         alignItems: 'center'
+    },
+    profileStyle: {
+        width: 70,
+        height: 70,
+        marginVertical: 5
     },
     textStyle: {
         fontSize: 16,

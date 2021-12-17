@@ -94,12 +94,6 @@ const BeautyTab = () => (
                 )}
             </View>
         </ScrollView>
-        {/* <TouchableOpacity
-            style={{backgroundColor: '#D7C9FF', alignItems: 'center'}}
-            onPress={() => {}}
-        >
-            <Text style={{fontSize: 20, paddingVertical: 5}}>Analysis Result</Text>
-        </TouchableOpacity> */}
     </View>
 );
 

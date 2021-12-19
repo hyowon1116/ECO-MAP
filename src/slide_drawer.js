@@ -73,7 +73,7 @@ class SlideDrawer extends Component {
                         </View>
                     </View>
                     <View style={{alignItems: 'center', paddingBottom: 40}}>
-                        <Text style={styles.userStyle}>사용 중인 이용권이 없습니다.</Text>
+                        <Text style={styles.nameStyle}><Text style={{fontWeight: 'normal'}}>보유 포인트: </Text>100</Text>
                     </View>
                 </LinearGradient>
                 <View style={{paddingVertical: 50}}>

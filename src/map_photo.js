@@ -8,15 +8,20 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, Image, Dimensions, TouchableOpacity} from 'react-native';
 import {CommonActions} from '@react-navigation/native';
-import MapSearchScreen from './map_search';
 
 const Width = Dimensions.get('window').width - 100;
 
 class MapPhotoScreen extends Component {
     render() {
+        let text;
         const {params} = this.props.route;
         const uri = params.uri;
         const title = params.title;
+        const latitude = params.latitude;
+        const longitude = params.longitude;
+
+        if (latitude > 0) {text = `위도 ${latitude}, 경도 ${longitude}`;}
+        else {text = '위치 정보를 불러오지 못했습니다. 재촬영 부탁드립니다.';}
 
         return (
             <View style={styles.viewStyle}>
@@ -24,17 +29,18 @@ class MapPhotoScreen extends Component {
                     source={{uri: uri}}
                     style={{width: Width, height: Width}}
                 />
+                <Text>{text}</Text>
                 <TouchableOpacity
-                    style={styles.buttonStyle}
+                    style={latitude ? styles.buttonStyle : [styles.buttonStyle, {backgroundColor: '#4D6878'}]}
+                    disabled={!latitude}
                     onPress={() => this.props.navigation.dispatch(
                         CommonActions.reset({
                             routes: [
-                                {name: 'Main', params: {}},
-                                {name: 'Map_Add', params: {}},
+                                {name: 'Main', params: {'latitude': latitude, 'longitude': longitude}},
+                                {name: 'Map_Add', params: {'latitude': latitude, 'longitude': longitude}},
                                 {name: 'Map_Menu2', params: {}}
                             ]
-                        }),
-                        alert('인증 완료')
+                        })
                     )}
                 >
                     <Text style={styles.titleStyle}>{title} 인증 완료</Text>

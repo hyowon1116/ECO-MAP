@@ -6,19 +6,45 @@
  */
 
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
+import {Text, View, StyleSheet, Dimensions, TouchableOpacity, Platform, PermissionsAndroid} from 'react-native';
 import {RNCamera} from 'react-native-camera';
+import Geolocation from 'react-native-geolocation-service';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height - Width;
 
+async function requestPermissions(fun) {
+    if (Platform.OS === 'android') {
+        const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            fun;
+        }
+    }
+    if (Platform.OS === 'ios') {
+        const auth = await Geolocation.requestAuthorization("whenInUse");
+        if (auth === 'granted') {
+            fun;
+        }
+    }
+}
+
 class MapCameraScreen extends Component {
 
     TakePhoto = async (title) => {
-        if (this.camera) {
-            const data = await this.camera.takePictureAsync({quality: 0.5, base64: true});
-            this.props.navigation.navigate('Map_Photo', {'uri': data.uri, 'title': title});
-        }
+        let latitude, longitude;
+
+        requestPermissions(
+            Geolocation.getCurrentPosition(
+                (position) => {latitude = position.coords.latitude, longitude = position.coords.longitude},
+                (error) => console.log(error.message),
+                {enableHighAccuracy: true}
+            )
+        )
+        
+        const data = await this.camera.takePictureAsync({quality: 1, base64: true});
+        this.props.navigation.navigate('Map_Photo', {'uri': data.uri, 'title': title, 'latitude': latitude, 'longitude': longitude});
     }
 
     render() {
